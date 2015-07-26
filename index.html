@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visualizing most populated cities in United States</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Visualizing most populated cities in United States">
+  <meta name="author" content="aficnar">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Visualizing most populated cities in United States</h1>
+    <h2>Developing Data Products Course Project</h2>
+    <p>aficnar<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>This is a project for Coursera&#39;s &quot;Developing Data Products&quot; course</li>
+<li>It is a simple demonstration of the <code>shiny</code> package that visualizes most populous american cities on a map</li>
+<li>The user can select the range of population interested and the cities within that range appear on the map of US as dots</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Data set</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>We&#39;ll use the <code>us.cities</code> dataset from the <code>maps</code> package 
+
+<ul>
+<li>It includes the US cities of population greater than about 40,000 (and state capitals of any population size)</li>
+<li>It contains data such as population, location and state of a city</li>
+</ul></li>
+</ul>
+
+<pre><code>##         name country.etc    pop   lat    long capital
+## 1 Abilene TX          TX 113888 32.45  -99.74       0
+## 2   Akron OH          OH 206634 41.08  -81.52       0
+## 3 Alameda CA          CA  70069 37.77 -122.26       0
+## 4  Albany GA          GA  75510 31.58  -84.18       0
+## 5  Albany NY          NY  93576 42.67  -73.80       2
+## 6  Albany OR          OR  45535 44.62 -123.09       0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Getting a map</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>We&#39;ll use the <code>ggmap</code> package for plotting maps</p>
+
+<ul>
+<li>One starts by putting the GPS coordinates of the rough center of the US in vector called, say, <code>myLoc</code></li>
+<li>In the <code>get_map</code> function one the uses this as the location and specifies the type of the desired map, as well as the size</li>
+</ul>
+
+<pre><code>myMap &lt;- get_map(location = myLoc, source = &quot;google&quot;, maptype = &quot;roadmap&quot;,
+             crop = FALSE, zoom = 4)
+</code></pre>
+
+<ul>
+<li>This is then passed to the <code>ggmap</code> function, which creates the desired map as a ggplot object on which one can then put lines, dots and other graphical elements</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>User experience</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The user has a slider bar with which to select the desired size range</li>
+<li>The code then subsets the <code>us.cities</code> data according to this range and puts dots on the map at the locations of those cities</li>
+<li>The user can decide whether the dots will all be the same size or scaled by the population size
+<img class="center" src="ss.jpg" height=300></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data set'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Getting a map'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='User experience'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

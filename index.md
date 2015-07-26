@@ -1,0 +1,59 @@
+---
+title       : Visualizing most populated cities in United States
+subtitle    : Developing Data Products Course Project
+author      : aficnar
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction
+
+* This is a project for Coursera's "Developing Data Products" course
+* It is a simple demonstration of the `shiny` package that visualizes most populous american cities on a map
+* The user can select the range of population interested and the cities within that range appear on the map of US as dots
+
+--- 
+
+## Data set
+
+* We'll use the `us.cities` dataset from the `maps` package 
+   + It includes the US cities of population greater than about 40,000 (and state capitals of any population size)
+   + It contains data such as population, location and state of a city
+
+```
+##         name country.etc    pop   lat    long capital
+## 1 Abilene TX          TX 113888 32.45  -99.74       0
+## 2   Akron OH          OH 206634 41.08  -81.52       0
+## 3 Alameda CA          CA  70069 37.77 -122.26       0
+## 4  Albany GA          GA  75510 31.58  -84.18       0
+## 5  Albany NY          NY  93576 42.67  -73.80       2
+## 6  Albany OR          OR  45535 44.62 -123.09       0
+```
+
+--- 
+
+## Getting a map
+
+* We'll use the `ggmap` package for plotting maps
+   + One starts by putting the GPS coordinates of the rough center of the US in vector called, say, `myLoc`
+   + In the `get_map` function one the uses this as the location and specifies the type of the desired map, as well as the size
+   
+   ```
+   myMap <- get_map(location = myLoc, source = "google", maptype = "roadmap",
+                 crop = FALSE, zoom = 4)
+   ```
+   + This is then passed to the `ggmap` function, which creates the desired map as a ggplot object on which one can then put lines, dots and other graphical elements
+
+--- 
+
+## User experience 
+
+* The user has a slider bar with which to select the desired size range
+* The code then subsets the `us.cities` data according to this range and puts dots on the map at the locations of those cities
+* The user can decide whether the dots will all be the same size or scaled by the population size
+<img class="center" src="ss.jpg" height=300>
